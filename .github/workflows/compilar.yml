@@ -18,7 +18,7 @@ jobs:
 
     - name: Compilar Driver (Release x64)
       run: |
-        msbuild hidusb2-master2/HidUsb2/HidUsb2.sln /p:Configuration=Release /p:Platform=x64 /p:TargetPlatformVersion=10.0.22621.0
+        msbuild HidUsb2.sln /p:Configuration=Release /p:Platform=x64 /p:TargetPlatformVersion=10.0.22621.0
 
     - name: Guardar el archivo .sys compilado
       uses: actions/upload-artifact@v4
