@@ -1,0 +1,29 @@
+name: Compilar Driver HidUsb2
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Esto te permite activar la compilación manualmente con un botón
+
+jobs:
+  build:
+    runs-on: windows-2022 # Servidor de Microsoft con Visual Studio 2022 y WDK integrado
+
+    steps:
+    - name: Clonar el código
+      uses: actions/checkout@v4
+
+    - name: Configurar MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Compilar Driver (Release x64)
+      run: |
+        msbuild HidUsb2.sln /p:Configuration=Release /p:Platform=x64 /p:TargetPlatformVersion=10.0.22621.0
+
+    - name: Guardar el archivo .sys compilado
+      uses: actions/upload-artifact@v4
+      with:
+        name: HidUsb2-Driver-Cortesia-Nube
+        path: |
+          **/*.sys
+          **/*.inf
